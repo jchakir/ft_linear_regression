@@ -33,3 +33,4 @@ def accuracy() -> float:
 if __name__ == '__main__':
   acc = accuracy()
   print('Accuracy:', acc)
+

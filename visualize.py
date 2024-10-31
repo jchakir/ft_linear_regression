@@ -7,7 +7,7 @@ from sys import exit
 plt.style.use('ggplot')
 
 # Local Varibles
-DATASET_PATH = './data.csv'
+DATASET_PATH = './data/data.csv'
 MODEL_PARAMS_PATH = './model/params.npy'
 
 # Basic Checks

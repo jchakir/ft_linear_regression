@@ -4,7 +4,7 @@ from os.path import isfile
 from sys import exit
 
 # Local Varibles
-DATASET_PATH = './data.csv'
+DATASET_PATH = './data/data.csv'
 MODEL_PARAMS_PATH = './model/params.npy'
 
 # Basic Checks
@@ -20,10 +20,10 @@ y = data.values[:, 1:2]
 
 # Training Class for Linear Regression
 class LinearRegression:
-  """
-  Initialize learnable paramettres (theta0 and theta1)
-  """
   def __init__(self) -> None:
+    """
+    Initialize learnable paramettres (theta0 and theta1)
+    """
     self.__theta0: float = 0
     self.__theta1: float = 0
     self.__standardization: tuple[float, float, float, float]
@@ -31,30 +31,30 @@ class LinearRegression:
     self.__y: np.ndarray
     self.__data_size: int
 
-  """
-  Forward Propagation: takes X as input and return yHat as output
-  Respecting this rule yHat = theta0 + theta1 * X
-  """
   def __forward(self) -> np.ndarray:
+    """
+    Forward Propagation: takes X as input and return yHat as output
+    Respecting this rule yHat = theta0 + theta1 * X
+    """
     return self.__theta0 + self.__theta1 * self.__X
 
-  """
-  Backward Propagation throught derivite of (mse) mean-squared-error
-  yHat: predicted label, alpha: learning_rate
-  return mean-squared-error value
-  """
   def __backward(self, yHat: np.ndarray, alpha: float) -> float:
+    """
+    Backward Propagation throught derivite of (mse) mean-squared-error
+    yHat: predicted label, alpha: learning_rate
+    return mean-squared-error value
+    """
     yHat_y = yHat - self.__y
     self.__theta0 -= alpha * (1/self.__data_size) * np.sum(yHat_y)
     self.__theta1 -= alpha * (1/self.__data_size) * np.sum(yHat_y.T.dot(self.__X))
     return (1 / self.__data_size) * np.sum(np.power(yHat_y, 2))
 
-  """
-  save theta0 and theta1 into binnary file for later use with numpy.save
-  first: re-transform theta0 and theta1 to real dimmention
-  this operation done using this formula https://datascience.stackexchange.com/questions/49765/
-  """
   def __save(self) -> None:
+    """
+    save theta0 and theta1 into binnary file for later use with numpy.save
+    first: re-transform theta0 and theta1 to real dimmention
+    this operation done using this formula https://datascience.stackexchange.com/questions/49765/
+    """
     t0, t1 = self.__theta0, self.__theta1
     meanx, stdx, meany, stdy = self.__standardization
 
@@ -104,3 +104,4 @@ def train() -> None:
 
 if __name__ == '__main__':
   train()
+
